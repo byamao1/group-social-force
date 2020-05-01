@@ -1,0 +1,7 @@
+.idea/
+*.log
+__pycache__/
+logs/
+deliver/dd_tem_lstm/
+
+*.pyc

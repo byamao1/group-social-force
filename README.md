@@ -36,3 +36,25 @@ tpre: 					      The TPRE Time in the Pre-Evacuation Stage
 In advance mode I start to use obstData2018.csv and Door_Data2018.csv, where the walls and doors are considered as rectangular areas.  
 Several things to do to improve existing work!  
 Maybe I should write a brief manual in the future.  Commets are much appreciated!
+
+## My work
+- Converting Python 2 code to Python 3
+- Formatting the indents
+- Relink the function calls
+
+### Cases
+grouping
+- simulator_WP0730.py [ok]
+- simulator_WP0732.py [No such file or directory: 'Agent_Data2018.csv']
+
+preEvac
+- simulator_3circles.py [ok]
+
+PreEvac2
+- simulator_WP0733.py [TypeError: 'NoneType' object is not iterable]
+
+threeParticles
+- simulator_WP0817_3Particles.py [ok]
+
+twoPath
+- simulator_WP07334.py [ok]

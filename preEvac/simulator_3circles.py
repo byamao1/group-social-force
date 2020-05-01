@@ -11,7 +11,7 @@ import random
 import csv
 
 from PreEvac2.readCSV import readCSV
-from grouping.particle_Regroup import normalize
+from preEvac.math_func import normalize
 from twoPath.agent_model import Agent
 from twoPath.math_func import vectorAngleCos
 

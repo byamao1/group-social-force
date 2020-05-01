@@ -5,18 +5,20 @@
 import pygame
 import pygame.draw
 import numpy as np
-from agent_model import *
-from obst import *
-from math_func import *
+# from agent_model import *
+# from obst import *
+# from math_func import *
 from math import *
 #from config import *
 import random
 import csv
-from readCSV import *
+# from readCSV import *
 
 
 # Below are variables for users to set up pygame features
 ################################################################
+from twoPath.agent_model import Agent
+from twoPath.math_func import normalize, vectorAngleCos
 from twoPath.obst import obst
 from twoPath.readCSV import readCSV
 

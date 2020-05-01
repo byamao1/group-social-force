@@ -173,7 +173,7 @@ class Pedestrian(object):
     def wallOnRoute(self, wall):
         self.pos
         self.actualV
-        return true
+        return True
 
 
     def peopleInterOpinion(self, other, Dfactor=1, Afactor=1, Bfactor=1):

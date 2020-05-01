@@ -49,6 +49,7 @@ grouping
 
 preEvac
 - simulator_3circles.py [ok]
+- simulator_WP0732_Regroup.py [ok] crowd
 
 PreEvac2
 - simulator_WP0733.py [TypeError: 'NoneType' object is not iterable]

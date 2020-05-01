@@ -2,49 +2,50 @@
 # Author: Shen Shen; Revised by Wang Peng
 
 import numpy as np
-from tools import *
 import random
+
+from Doorway.tools import *
+
 
 class Agent(object):
     def __init__(self, x=1, y=1):
         # random initialize a agent
-        
-        self.posX = random.uniform(8,24)
-        self.posY = random.uniform(8,18)
+
+        self.posX = random.uniform(8, 24)
+        self.posY = random.uniform(8, 18)
         self.pos = np.array([self.posX, self.posY])
-        #self.pos = np.array([10.0, 10.0])
+        # self.pos = np.array([10.0, 10.0])
 
-        self.actualVX = 0 #random.uniform(0,1.6)
-        self.actualVY = 0 #random.uniform(0,1.6)
+        self.actualVX = 0  # random.uniform(0,1.6)
+        self.actualVY = 0  # random.uniform(0,1.6)
         self.actualV = np.array([self.actualVX, self.actualVY])
-        #self.actualV = np.array([0.0, 0.0])
+        # self.actualV = np.array([0.0, 0.0])
 
-        self.dest = np.array([60.0,10.0])
+        self.dest = np.array([60.0, 10.0])
         self.direction = normalize(self.dest - self.pos)
-        #self.direction = np.array([0.0, 0.0])
-        
-        self.desiredSpeed = 1.8 #random.uniform(0.3,2.3) #1.8
-        self.desiredV = self.desiredSpeed*self.direction
-        
-        self.acclTime = random.uniform(8,16) #10.0
-        self.drivenAcc =(self.desiredV - self.actualV)/self.acclTime
-               
-        self.mass = 60 #random.uniform(40,90)
-        self.radius = 0.35 #1.6 
+        # self.direction = np.array([0.0, 0.0])
+
+        self.desiredSpeed = 1.8  # random.uniform(0.3,2.3) #1.8
+        self.desiredV = self.desiredSpeed * self.direction
+
+        self.acclTime = random.uniform(8, 16)  # 10.0
+        self.drivenAcc = (self.desiredV - self.actualV) / self.acclTime
+
+        self.mass = 60  # random.uniform(40,90)
+        self.radius = 0.35  # 1.6
         self.interactionRange = 3
         self.p = 0.6
-        
+
         self.bodyFactor = 120000
         self.slideFricFactor = 240000
         self.A = 1
-        self.B = 0.8 #random.uniform(0.8,1.6) #0.8 #0.08
-        
-	self.Goal = 0
-	self.timeOut = 0.0
-	
+        self.B = 0.8  # random.uniform(0.8,1.6) #0.8 #0.08
+
+        self.Goal = 0
+        self.timeOut = 0.0
+
         print('X and Y Position:', self.pos)
         print('self.direction:', self.direction)
-        
 
     # def step(self):
     #     # 初始速度和位置
@@ -64,39 +65,33 @@ class Agent(object):
     #     self.pos = r0 + v0 + 0.5*accl
     #     print(accl,self.actualV,self.pos)
 
-        
     def adaptVel(self):
         deltaV = self.desiredV - self.actualV
         if np.allclose(deltaV, np.zeros(2)):
             deltaV = np.zeros(2)
-        return deltaV*self.mass/self.acclTime
-
-        
+        return deltaV * self.mass / self.acclTime
 
     def peopleInteraction(self, other, Dfactor=1, Afactor=1, Bfactor=1):
         rij = self.radius + other.radius
         dij = np.linalg.norm(self.pos - other.pos)
-        nij = (self.pos - other.pos)/dij
-        first = Afactor*self.A*np.exp((rij*Dfactor-dij)/(self.B*Bfactor))*nij*20
-        + self.bodyFactor*g(rij-dij)*nij*1000000  #/10000
-        #tij = np.array([-nij[1],nij[0]])
-        #deltaVij = (self.actualV - other.actualV)*tij
-        #second = self.slideFricFactor*g(rij-dij)*deltaVij*tij
-        return first #+ second
+        nij = (self.pos - other.pos) / dij
+        first = Afactor * self.A * np.exp((rij * Dfactor - dij) / (self.B * Bfactor)) * nij * 20
+        + self.bodyFactor * g(rij - dij) * nij * 1000000  # /10000
+        # tij = np.array([-nij[1],nij[0]])
+        # deltaVij = (self.actualV - other.actualV)*tij
+        # second = self.slideFricFactor*g(rij-dij)*deltaVij*tij
+        return first  # + second
 
     def wallInteraction(self, wall):
         ri = self.radius
-        diw,niw = distanceP2W(self.pos,wall)
-        first = -self.A*np.exp((ri-diw)/self.B)*niw*160
-        + self.bodyFactor*g(ri-diw)*niw/10000
-        #tiw = np.array([-niw[1],niw[0]])
-        #second = self.slideFricFactor*g(ri-diw)*(self.actualV*tiw)*tiw
-        return first #- second
+        diw, niw = distanceP2W(self.pos, wall)
+        first = -self.A * np.exp((ri - diw) / self.B) * niw * 160
+        + self.bodyFactor * g(ri - diw) * niw / 10000
+        # tiw = np.array([-niw[1],niw[0]])
+        # second = self.slideFricFactor*g(ri-diw)*(self.actualV*tiw)*tiw
+        return first  # - second
 
-    #def wallOnRoute(self, wall):
-	#self.pos
-	#self.actualV
-	#return true
-
-        
-        
+    # def wallOnRoute(self, wall):
+# self.pos
+# self.actualV
+# return true

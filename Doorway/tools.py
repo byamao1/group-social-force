@@ -34,7 +34,7 @@ def normalize(v):
     return v/norm
 
 def g(x):
-    return np.max(x, 0.0)
+    return np.maximum(x, 0.0)
 
 
 # 计算点到线段的距离，并计算由点到与线段交点的单位向量
@@ -66,6 +66,6 @@ if __name__ == '__main__':
     # v3 = np.array([29.97,23.31])
     # print(worldCoord2ScreenCoord(v3, [1000,800],30))
     wall = [3.33, 3.33, 29.97, 3.33]
-    print distanceP2W(np.array([10.0,10.0]),wall)
+    print(distanceP2W(np.array([10.0,10.0]), wall))
     # print distanceP2W(np.array([0.5,2.0]),wall)
     # print distanceP2W(np.array([2.0,2.0]),wall)
